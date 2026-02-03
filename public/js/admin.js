@@ -1,0 +1,129 @@
+// Firebase configuration (Same as app.js)
+const firebaseConfig = {
+    projectId: "onlineunnati-in-v1",
+    appId: "1:561314718063:web:5d55159f7dd92ea420889a",
+    storageBucket: "onlineunnati-in-v1.firebasestorage.app",
+    apiKey: "AIzaSyCqvT0pKrjVdhSy6KgbU1FRBe7sZRIhBWU",
+    authDomain: "onlineunnati-in-v1.firebaseapp.com",
+    messagingSenderId: "561314718063",
+    projectNumber: "561314718063"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// Simple Auth
+function checkLogin() {
+    const pass = document.getElementById('adminPass').value;
+    if (pass === "unnati2026") {
+        document.getElementById('loginOverlay').style.display = 'none';
+        loadData();
+    } else {
+        alert("Incorrect Password!");
+    }
+}
+
+// Navigation
+function showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.sidebar-menu li').forEach(l => l.classList.remove('active'));
+
+    document.getElementById('sec' + sectionId.charAt(0).toUpperCase() + sectionId.slice(1)).classList.add('active');
+    document.getElementById('menu' + sectionId.charAt(0).toUpperCase() + sectionId.slice(1)).classList.add('active');
+
+    if (sectionId !== 'addBusiness') loadData();
+}
+
+async function loadData() {
+    // Load Leads
+    const leadsSnap = await db.collection("leads").orderBy("timestamp", "desc").get();
+    const leadsBody = document.getElementById("leadsBody");
+    leadsBody.innerHTML = "";
+    leadsSnap.forEach(doc => {
+        const d = doc.data();
+        leadsBody.innerHTML += `<tr>
+            <td>${d.name}</td>
+            <td>${d.business}</td>
+            <td>${d.phone}</td>
+            <td><span class="badge" style="position:static; transform:none;">${d.plan}</span></td>
+            <td>${d.timestamp?.toDate().toLocaleDateString() || '-'}</td>
+        </tr>`;
+    });
+
+    // Load Employees
+    const empSnap = await db.collection("employee_codes").orderBy("timestamp", "desc").get();
+    const empBody = document.getElementById("employeeBody");
+    empBody.innerHTML = "";
+    empSnap.forEach(doc => {
+        const d = doc.data();
+        empBody.innerHTML += `<tr>
+            <td><strong>${d.code}</strong></td>
+            <td>${d.name}</td>
+            <td>${d.timestamp?.toDate().toLocaleDateString() || '-'}</td>
+        </tr>`;
+    });
+
+    // Load Businesses
+    const bizSnap = await db.collection("businesses").orderBy("timestamp", "desc").get();
+    const bizBody = document.getElementById("bizBody");
+    bizBody.innerHTML = "";
+    bizSnap.forEach(doc => {
+        const d = doc.data();
+        bizBody.innerHTML += `<tr>
+            <td>${d.bizName}</td>
+            <td>${d.ownerName}</td>
+            <td><code>${d.empCode}</code></td>
+            <td>${d.bizPhone}</td>
+            <td>${d.timestamp?.toDate().toLocaleDateString() || '-'}</td>
+        </tr>`;
+    });
+}
+
+// Generate Code
+async function generateCode() {
+    const name = document.getElementById('empName').value;
+    if (!name) return alert("Enter employee name");
+
+    const code = "UN" + Math.random().toString(36).substring(2, 7).toUpperCase();
+
+    try {
+        await db.collection("employee_codes").add({
+            name: name,
+            code: code,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        document.getElementById('empName').value = "";
+        loadData();
+        alert("Generated Code: " + code);
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+// Save Business
+document.getElementById("businessForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = {
+        empCode: formData.get('empCode'),
+        bizName: formData.get('bizName'),
+        ownerName: formData.get('ownerName'),
+        bizPhone: formData.get('bizPhone'),
+        bizAddress: formData.get('bizAddress'),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    try {
+        // Optional: Check if code exists
+        const codeCheck = await db.collection("employee_codes").where("code", "==", data.empCode).get();
+        if (codeCheck.empty) return alert("Invalid Employee Code!");
+
+        await db.collection("businesses").add(data);
+        alert("Business details stored successfully!");
+        e.target.reset();
+        showSection('businesses');
+    } catch (e) {
+        console.error(e);
+        alert("Error storing data");
+    }
+});

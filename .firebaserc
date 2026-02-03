@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "listingsuit",
+    "Portfolio": "everythingbot-71b13",
+    "staging": "listingsuit"
+  },
+  "targets": {},
+  "etags": {}
+}

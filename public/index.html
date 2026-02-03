@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Unnati | Grow Your Local Shop Online</title>
+  <meta name="description"
+    content="Affordable online visibility plans for local shops. Get your single-page website, posters, logos, and product listings to grow your business.">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@500;700;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="dark-theme">
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="logo">Online<span>Unnati</span></a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#plans">Plans</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="admin.html" class="admin-link">Admin</a></li>
+      </ul>
+      <a href="#plans" class="btn btn-primary">Get Started</a>
+    </div>
+  </nav>
+
+  <header id="home" class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="fade-in">Give Your <span class="text-gradient">Local Shop</span> the Online Visibility It Deserves
+        </h1>
+        <p class="fade-in">Empower your business with professional videos, stunning posters, and e-commerce listings—all
+          starting at just ₹999/month.</p>
+        <div class="hero-btns fade-in">
+          <a href="#plans" class="btn btn-glow">View Plans</a>
+          <a href="#contact" class="btn btn-outline">Check Sample Site</a>
+        </div>
+      </div>
+      <div class="hero-image fade-in">
+        <div class="mockup-frame">
+          <img id="hero-img" src="assets/hero.png" alt="Local Shop Online Visibility">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="plans" class="pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2>Choose Your <span class="text-gradient">Growth Plan</span></h2>
+        <p>Simple, transparent, and monthly plans tailored for every local business.</p>
+      </div>
+      <div class="pricing-grid">
+        <!-- Basic Plan -->
+        <div class="pricing-card" data-plan="Basic">
+          <div class="card-header">
+            <h3>Starter</h3>
+            <div class="price">₹999<span>/mo</span></div>
+          </div>
+          <ul class="features">
+            <li><i class="fas fa-check"></i> 1 Video & 5 Posters</li>
+            <li><i class="fas fa-check"></i> 1 Professional Logo</li>
+            <li><i class="fas fa-check"></i> Instagram & Facebook Page</li>
+            <li><i class="fas fa-check"></i> Lead into WhatsApp</li>
+            <li><i class="fas fa-check"></i> Flipkart/Amazon/Meesho (3 listings)</li>
+            <li><i class="fas fa-check"></i> Marketing video for website</li>
+          </ul>
+          <button class="btn btn-block btn-interest" onclick="openInterestForm('Starter')">Show Interest</button>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="pricing-card featured" data-plan="Pro">
+          <div class="badge">Most Popular</div>
+          <div class="card-header">
+            <h3>Growth</h3>
+            <div class="price">₹2999<span>/mo</span></div>
+          </div>
+          <ul class="features">
+            <li><i class="fas fa-check"></i> 5 Videos & 15 Posters</li>
+            <li><i class="fas fa-check"></i> 1 Professional Logo</li>
+            <li><i class="fas fa-check"></i> Instagram & Facebook Page</li>
+            <li><i class="fas fa-check"></i> Flipkart/Amazon/Meesho (5 listings)</li>
+            <li><i class="fas fa-check"></i> Marketing video for website</li>
+            <li><i class="fas fa-check"></i> Premium Ad Management</li>
+          </ul>
+          <button class="btn btn-block btn-primary btn-interest" onclick="openInterestForm('Growth')">Show
+            Interest</button>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="pricing-card" data-plan="Premium">
+          <div class="card-header">
+            <h3>Dominance</h3>
+            <div class="price">₹4999<span>/mo</span></div>
+          </div>
+          <ul class="features">
+            <li><i class="fas fa-check"></i> 5 Videos & 30 Posters</li>
+            <li><i class="fas fa-check"></i> 1 Professional Logo</li>
+            <li><i class="fas fa-check"></i> Instagram & Facebook Page</li>
+            <li><i class="fas fa-check"></i> Flipkart/Amazon/Meesho (10 listings)</li>
+            <li><i class="fas fa-check"></i> Marketing video for website</li>
+            <li><i class="fas fa-check"></i> VIP Customer Support</li>
+          </ul>
+          <button class="btn btn-block btn-interest" onclick="openInterestForm('Dominance')">Show Interest</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2>Frequently Asked <span class="text-gradient">Questions</span></h2>
+      </div>
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question">What is Online Unnati?</div>
+          <div class="faq-answer">We help local shops get digital visibility through professional content, social media
+            presence, and e-commerce listings.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How do I get my leads?</div>
+          <div class="faq-answer">All leads generated through your single-page website are sent directly to your
+            WhatsApp.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I get more videos than in the plan?</div>
+          <div class="faq-answer">Yes! You can get extra videos at ₹500 (Basic), ₹450 (Growth), or ₹400 (Dominance) per
+            video.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Online<span>Unnati</span></div>
+        <p>&copy; 2026 Online Unnati. All rights reserved.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interest Modal -->
+  <div id="interestModal" class="modal">
+    <div class="modal-content glass">
+      <span class="close">&times;</span>
+      <h2>Show Interest in <span id="selectedPlan" class="text-gradient"></span> Plan</h2>
+      <form id="interestForm">
+        <input type="hidden" name="plan" id="planInput">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="name" required placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" name="phone" required placeholder="Enter your phone number">
+        </div>
+        <div class="form-group">
+          <label>Business Name</label>
+          <input type="text" name="business" required placeholder="Enter your business name">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit Interest</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
