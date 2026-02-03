@@ -1,12 +1,13 @@
 // Firebase configuration
 const firebaseConfig = {
-    projectId: "onlineunnati-in-v1",
-    appId: "1:561314718063:web:5d55159f7dd92ea420889a",
-    storageBucket: "onlineunnati-in-v1.firebasestorage.app",
-    apiKey: "AIzaSyCqvT0pKrjVdhSy6KgbU1FRBe7sZRIhBWU",
-    authDomain: "onlineunnati-in-v1.firebaseapp.com",
-    messagingSenderId: "561314718063",
-    projectNumber: "561314718063"
+    projectId: "listingsuit",
+    appId: "1:194651929970:web:7674f9d8130fc9867cb1eb",
+    storageBucket: "listingsuit.firebasestorage.app",
+    apiKey: "AIzaSyBAJn3hMWxPxmmeN2LqhpJdDxHOuUfxeYM",
+    authDomain: "listingsuit.firebaseapp.com",
+    messagingSenderId: "194651929970",
+    measurementId: "G-LH5FDXK8PP",
+    projectNumber: "194651929970"
 };
 
 // Initialize Firebase

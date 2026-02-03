@@ -22,12 +22,12 @@
 <body class="dark-theme">
   <nav class="navbar">
     <div class="container">
-      <a href="#" class="logo">Online<span>Unnati</span></a>
+      <a href="#" class="logo">Online<span>उन्नति</span></a>
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#plans">Plans</a></li>
         <li><a href="#faq">FAQ</a></li>
-        <li><a href="admin.html" class="admin-link">Admin</a></li>
+        <!-- <li><a href="admin.html" class="admin-link">Admin</a></li> -->
       </ul>
       <a href="#plans" class="btn btn-primary">Get Started</a>
     </div>
@@ -41,8 +41,7 @@
         <p class="fade-in">Empower your business with professional videos, stunning posters, and e-commerce listings—all
           starting at just ₹999/month.</p>
         <div class="hero-btns fade-in">
-          <a href="#plans" class="btn btn-glow">View Plans</a>
-          <a href="#contact" class="btn btn-outline">Check Sample Site</a>
+          <!-- Removed CTAs as per request -->
         </div>
       </div>
       <div class="hero-image fade-in">
@@ -64,7 +63,10 @@
         <div class="pricing-card" data-plan="Basic">
           <div class="card-header">
             <h3>Starter</h3>
-            <div class="price">₹999<span>/mo</span></div>
+            <div class="price">
+              <span class="original-price">MRP: ₹2999</span>
+              ₹999<span> / month</span>
+            </div>
           </div>
           <ul class="features">
             <li><i class="fas fa-check"></i> 1 Video & 5 Posters</li>
@@ -82,7 +84,10 @@
           <div class="badge">Most Popular</div>
           <div class="card-header">
             <h3>Growth</h3>
-            <div class="price">₹2999<span>/mo</span></div>
+            <div class="price">
+              <span class="original-price">MRP: ₹5999</span>
+              ₹2999<span> / month</span>
+            </div>
           </div>
           <ul class="features">
             <li><i class="fas fa-check"></i> 5 Videos & 15 Posters</li>
@@ -100,7 +105,10 @@
         <div class="pricing-card" data-plan="Premium">
           <div class="card-header">
             <h3>Dominance</h3>
-            <div class="price">₹4999<span>/mo</span></div>
+            <div class="price">
+              <span class="original-price">MRP: ₹9999</span>
+              ₹4999<span> / month</span>
+            </div>
           </div>
           <ul class="features">
             <li><i class="fas fa-check"></i> 5 Videos & 30 Posters</li>
@@ -137,14 +145,30 @@
           <div class="faq-answer">Yes! You can get extra videos at ₹500 (Basic), ₹450 (Growth), or ₹400 (Dominance) per
             video.</div>
         </div>
+        <div class="faq-item">
+          <div class="faq-question">How will Online उन्नति increase my sales?</div>
+          <div class="faq-answer">By establishing a professional online presence, listing your products on major
+            platforms like Amazon/Flipkart, and providing high-quality marketing content, we help you reach a wider
+            audience and convert more browsers into buyers.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I really improve my local visibility with just ₹999/month?</div>
+          <div class="faq-answer">Absolutely! Our Starter plan is designed specifically to give local shops the
+            essential tools (Logo, Posters, Social Media) to start appearing in local online searches and social feeds,
+            which is the first step to growth.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Do you manage my social media accounts?</div>
+          <div class="faq-answer">We set up and optimize your Instagram & Facebook pages. We also provide professional
+            posters and videos periodically, which you can post to keep your audience engaged.</div>
+        </div>
       </div>
-    </div>
   </section>
 
   <footer id="contact">
     <div class="container">
       <div class="footer-content">
-        <div class="footer-logo">Online<span>Unnati</span></div>
+        <div class="footer-logo">Online<span>उन्नति</span></div>
         <p>&copy; 2026 Online Unnati. All rights reserved.</p>
         <div class="social-icons">
           <a href="#"><i class="fab fa-facebook"></i></a>
@@ -182,7 +206,7 @@
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=2"></script>
 </body>
 
 </html>
