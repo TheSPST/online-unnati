@@ -17,12 +17,21 @@ const db = firebase.firestore();
 function checkLogin() {
     const pass = document.getElementById('adminPass').value;
     if (pass === "unnati2026") {
+        localStorage.setItem('adminLoggedIn', 'true');
         document.getElementById('loginOverlay').style.display = 'none';
         loadData();
     } else {
         alert("Incorrect Password!");
     }
 }
+
+// Check Login on Load
+window.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('adminLoggedIn') === 'true') {
+        document.getElementById('loginOverlay').style.display = 'none';
+        loadData();
+    }
+});
 
 // Navigation
 function showSection(sectionId) {
@@ -76,6 +85,7 @@ async function loadData() {
             </td>
             <td>${d.ownerName}</td>
             <td>${d.bizProduct || '-'}</td>
+            <td><span class="badge">${d.bizPlan || '-'}</span></td>
             <td><code>${d.empCode}</code></td>
             <td>${d.bizPhone}</td>
             <td>${d.timestamp?.toDate().toLocaleDateString() || '-'}</td>
