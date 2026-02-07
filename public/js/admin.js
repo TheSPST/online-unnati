@@ -99,7 +99,7 @@ function renderBusinesses(data) {
             </td>
             <td>${d.ownerName}</td>
             <td>${d.bizProduct || '-'}</td>
-            <td><span class="badge">${d.bizPlan || '-'}</span></td>
+            <td><span class="badge" style="position:static; transform:none;">${d.bizPlan || '-'}</span></td>
             <td><code>${d.empCode}</code></td>
             <td>${d.bizPhone}</td>
             <td>${d.timestamp?.toDate().toLocaleDateString() || '-'}</td>
