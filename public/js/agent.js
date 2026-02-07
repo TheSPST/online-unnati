@@ -29,6 +29,7 @@ document.getElementById("businessForm").addEventListener("submit", async (e) => 
         empCode: formData.get('empCode').toUpperCase(),
         bizName: formData.get('bizName'),
         ownerName: formData.get('ownerName'),
+        bizPlan: formData.get('bizPlan'),
         bizPhone: formData.get('bizPhone'),
         bizAddress: formData.get('bizAddress'),
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
