@@ -131,8 +131,6 @@
                         Customer Leads</li>
                     <li onclick="showSection('employees')" id="menuEmployees"><i class="fas fa-id-card"></i> Employee
                         Codes</li>
-                    <li onclick="showSection('addBusiness')" id="menuAddBusiness"><i class="fas fa-plus-circle"></i> Add
-                        Business</li>
                     <li onclick="showSection('businesses')" id="menuBusinesses"><i class="fas fa-store"></i> All
                         Businesses</li>
                 </ul>
@@ -176,35 +174,6 @@
                     </table>
                 </div>
 
-                <!-- Add Business Section -->
-                <div id="secAddBusiness" class="section">
-                    <h2>Store Complete Business Details</h2>
-                    <form id="businessForm" style="max-width: 600px; margin-top: 20px;">
-                        <div class="form-group">
-                            <label>Employee Code</label>
-                            <input type="text" name="empCode" required placeholder="Enter your unique code">
-                        </div>
-                        <div class="form-group">
-                            <label>Business Name</label>
-                            <input type="text" name="bizName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Owner Name</label>
-                            <input type="text" name="ownerName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="tel" name="bizPhone" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <textarea name="bizAddress"
-                                style="width:100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color:white;"
-                                rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Save Business Details</button>
-                    </form>
-                </div>
 
                 <!-- Businesses List Section -->
                 <div id="secBusinesses" class="section">
@@ -214,6 +183,7 @@
                             <tr>
                                 <th>Business</th>
                                 <th>Owner</th>
+                                <th>Product</th>
                                 <th>By Code</th>
                                 <th>Phone</th>
                                 <th>Date</th>

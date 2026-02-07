@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Business | Online Unnati</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 120px auto 60px;
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .form-group select option {
+            background: var(--bg-card);
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Online<span>उन्नति</span></a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Register New Business</h2>
+                <p style="color: var(--text-muted);">Enter details to enroll a shop</p>
+            </div>
+
+            <form id="businessForm">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="assets/9448b853-7fec-4d53-b37f-615d46589334.JPG" alt="Payment QR Code"
+                        style="max-width: 200px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.1);">
+                </div>
+
+                <div class="form-group">
+                    <label>Employee Code</label>
+                    <input type="text" name="empCode" required placeholder="Enter your unique code">
+                </div>
+                <div class="form-group">
+                    <label>Business Name</label>
+                    <input type="text" name="bizName" required>
+                </div>
+                <div class="form-group">
+                    <label>Owner Name</label>
+                    <input type="text" name="ownerName" required>
+                </div>
+                <div class="form-group">
+                    <label>Product / Service</label>
+                    <input type="text" name="bizProduct" required placeholder="e.g. Grocery, Salon, Repair Shop">
+                </div>
+                <div class="form-group">
+                    <label>Select Plan</label>
+                    <select name="bizPlan" required>
+                        <option value="" disabled selected>Choose a plan...</option>
+                        <option value="Starter">Starter - ₹999/month</option>
+                        <option value="Growth">Growth - ₹2999/month</option>
+                        <option value="Dominance">Dominance - ₹4999/month</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Remark (Optional)</label>
+                    <input type="text" name="bizRemark" placeholder="Any additional notes">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="bizPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea name="bizAddress" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Submit Registration</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="js/business-registration.js"></script>
+</body>
+
+</html>

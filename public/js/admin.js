@@ -71,8 +71,11 @@ async function loadData() {
     bizSnap.forEach(doc => {
         const d = doc.data();
         bizBody.innerHTML += `<tr>
-            <td>${d.bizName}</td>
+            <td>${d.bizName}
+                ${d.bizRemark ? `<br><small style="color:var(--text-muted); font-size:0.8em;">${d.bizRemark}</small>` : ''}
+            </td>
             <td>${d.ownerName}</td>
+            <td>${d.bizProduct || '-'}</td>
             <td><code>${d.empCode}</code></td>
             <td>${d.bizPhone}</td>
             <td>${d.timestamp?.toDate().toLocaleDateString() || '-'}</td>
@@ -101,30 +104,4 @@ async function generateCode() {
     }
 }
 
-// Save Business
-document.getElementById("businessForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = {
-        empCode: formData.get('empCode'),
-        bizName: formData.get('bizName'),
-        ownerName: formData.get('ownerName'),
-        bizPhone: formData.get('bizPhone'),
-        bizAddress: formData.get('bizAddress'),
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    };
 
-    try {
-        // Optional: Check if code exists
-        const codeCheck = await db.collection("employee_codes").where("code", "==", data.empCode).get();
-        if (codeCheck.empty) return alert("Invalid Employee Code!");
-
-        await db.collection("businesses").add(data);
-        alert("Business details stored successfully!");
-        e.target.reset();
-        showSection('businesses');
-    } catch (e) {
-        console.error(e);
-        alert("Error storing data");
-    }
-});
