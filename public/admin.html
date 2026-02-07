@@ -140,14 +140,22 @@
                 <!-- Leads Section -->
                 <div id="secLeads" class="section active">
                     <h2>Customer Leads</h2>
+                    <input type="text" id="searchLeads" onkeyup="filterLeads()" placeholder="Search leads..."
+                        class="btn-outline"
+                        style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px;">
                     <table id="leadsTable">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Business</th>
-                                <th>Phone</th>
-                                <th>Plan</th>
-                                <th>Date</th>
+                                <th onclick="sortTable('leads', 'name')" style="cursor:pointer">Name <i
+                                        class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('leads', 'business')" style="cursor:pointer">Business <i
+                                        class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('leads', 'phone')" style="cursor:pointer">Phone <i
+                                        class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('leads', 'plan')" style="cursor:pointer">Plan <i
+                                        class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('leads', 'timestamp')" style="cursor:pointer">Date <i
+                                        class="fas fa-sort"></i></th>
                             </tr>
                         </thead>
                         <tbody id="leadsBody"></tbody>
@@ -178,16 +186,26 @@
                 <!-- Businesses List Section -->
                 <div id="secBusinesses" class="section">
                     <h2>All Registered Businesses</h2>
+                    <input type="text" id="searchBiz" onkeyup="filterBusinesses()" placeholder="Search businesses..."
+                        class="btn-outline"
+                        style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px;">
                     <table id="bizTable">
                         <thead>
                             <tr>
-                                <th>Business</th>
-                                <th>Owner</th>
-                                <th>Product</th>
-                                <th>Plan</th>
-                                <th>By Code</th>
-                                <th>Phone</th>
-                                <th>Date</th>
+                                <th onclick="sortTable('businesses', 'bizName')" style="cursor:pointer">Business <i
+                                        class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('businesses', 'ownerName')" style="cursor:pointer">Owner <i
+                                        class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('businesses', 'bizProduct')" style="cursor:pointer">Product <i
+                                        class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('businesses', 'bizPlan')" style="cursor:pointer">Plan <i
+                                        class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('businesses', 'empCode')" style="cursor:pointer">By Code <i
+                                        class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('businesses', 'bizPhone')" style="cursor:pointer">Phone <i
+                                        class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('businesses', 'timestamp')" style="cursor:pointer">Date <i
+                                        class="fas fa-sort"></i></th>
                             </tr>
                         </thead>
                         <tbody id="bizBody"></tbody>
