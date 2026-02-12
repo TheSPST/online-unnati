@@ -63,6 +63,77 @@ let leadsData = [];
 let employeesData = [];
 let businessesData = [];
 let sortDir = { leads: 'asc', businesses: 'asc' };
+let currentEditId = null;
+let currentEditCollection = null;
+
+// Modal Functions
+function openEditModal(collection, id) {
+    const container = document.getElementById('editFormContainer');
+    if (!container) return showToast("Error: Edit form container not found", "error");
+
+    currentEditCollection = collection;
+    currentEditId = id;
+    let html = '';
+    let data = null;
+
+    if (collection === 'leads') {
+        data = leadsData.find(d => d.id === id);
+        if (!data) return;
+        html = `
+            <label>Name</label>
+            <input type="text" id="editName" value="${data.name || ''}">
+            <label>Phone</label>
+            <input type="text" id="editPhone" value="${data.phone || ''}">
+            <label>Business</label>
+            <input type="text" id="editBusiness" value="${data.business || ''}">
+            <label>Plan</label>
+            <select id="editPlan">
+                <option value="Basic" ${data.plan === 'Basic' ? 'selected' : ''}>Basic</option>
+                <option value="Standard" ${data.plan === 'Standard' ? 'selected' : ''}>Standard</option>
+                <option value="Premium" ${data.plan === 'Premium' ? 'selected' : ''}>Premium</option>
+            </select>
+        `;
+    } else if (collection === 'employee_codes') {
+        data = employeesData.find(d => d.id === id);
+        if (!data) return;
+        html = `
+            <label>Employee Name</label>
+            <input type="text" id="editEmpName" value="${data.name || ''}">
+             <label>Code (Read Only)</label>
+            <input type="text" value="${data.code || ''}" readonly style="opacity:0.6">
+        `;
+    } else if (collection === 'businesses') {
+        data = businessesData.find(d => d.id === id);
+        if (!data) return;
+        html = `
+            <label>Business Name</label>
+            <input type="text" id="editBizName" value="${data.bizName || ''}">
+            <label>Owner Name</label>
+            <input type="text" id="editOwnerName" value="${data.ownerName || ''}">
+            <label>Phone</label>
+            <input type="text" id="editBizPhone" value="${data.bizPhone || ''}">
+            <label>Product</label>
+            <input type="text" id="editBizProduct" value="${data.bizProduct || ''}">
+            <label>Plan</label>
+            <select id="editBizPlan">
+                 <option value="Basic" ${data.bizPlan === 'Basic' ? 'selected' : ''}>Basic</option>
+                <option value="Standard" ${data.bizPlan === 'Standard' ? 'selected' : ''}>Standard</option>
+                <option value="Premium" ${data.bizPlan === 'Premium' ? 'selected' : ''}>Premium</option>
+            </select>
+            <label>Remark</label>
+            <textarea id="editBizRemark" rows="3">${data.bizRemark || ''}</textarea>
+        `;
+    }
+
+    container.innerHTML = html;
+    document.getElementById('editModal').style.display = 'flex';
+}
+
+function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+    currentEditId = null;
+    currentEditCollection = null;
+}
 
 // Date Helper
 function formatDate(timestamp) {
@@ -345,3 +416,24 @@ async function generateCode() {
 }
 
 
+
+// Sidebar Toggle
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const grid = document.querySelector('.dashboard-grid');
+    const btnIcon = sidebar.querySelector('button i');
+    const menuTitle = document.getElementById('menuTitle');
+
+    sidebar.classList.toggle('collapsed');
+    grid.classList.toggle('collapsed-mode');
+
+    if (sidebar.classList.contains('collapsed')) {
+        menuTitle.style.display = 'none';
+        btnIcon.classList.remove('fa-bars');
+        btnIcon.classList.add('fa-chevron-right');
+    } else {
+        menuTitle.style.display = 'block';
+        btnIcon.classList.remove('fa-chevron-right');
+        btnIcon.classList.add('fa-bars');
+    }
+}

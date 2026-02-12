@@ -499,3 +499,48 @@ table {
         /* Adjust for taller navbar */
     }
 }
+
+/* Collapsed Sidebar */
+.sidebar {
+    transition: all 0.3s ease;
+    width: 100%;
+    /* Default in grid */
+    overflow: hidden;
+}
+
+.dashboard-grid.collapsed-mode {
+    grid-template-columns: 80px 1fr;
+}
+
+.sidebar.collapsed {
+    padding: 20px 10px;
+    text-align: center;
+}
+
+.sidebar.collapsed #menuTitle,
+.sidebar.collapsed hr,
+.sidebar.collapsed li span,
+.sidebar.collapsed .logo span,
+.sidebar.collapsed .admin-user {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-menu {
+    padding: 0;
+}
+
+.sidebar.collapsed li {
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.sidebar.collapsed li i {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.sidebar.collapsed .btn-outline {
+    margin: 0 auto;
+}
