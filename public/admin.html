@@ -153,6 +153,14 @@
         </div>
     </div>
 
+    <!-- Loader -->
+    <div id="loader" class="loader-overlay" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
     <!-- Edit Modal -->
     <nav class="navbar">
         <div class="container">
@@ -160,7 +168,7 @@
                 <a href="index.html" class="logo">Online<span>उन्नति</span> Admin</a>
             </div>
             <div class="admin-user">
-                <i class="fas fa-user-shield"></i> Manager Mode
+                <i class="fas fa-user-shield"></i> Admin Mode
                 <button onclick="logout()" class="btn btn-sm btn-outline"
                     style="margin-left: 15px; border-color: rgba(255,255,255,0.2); color: white;">
                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -265,6 +273,18 @@
                     </table>
                 </div>
             </main>
+        </div>
+    </div>
+
+    <!-- Edit Modal (Placed at bottom) -->
+    <div id="editModal" class="edit-modal">
+        <div class="edit-box">
+            <h2 style="margin-bottom: 20px;">Edit Details</h2>
+            <div id="editFormContainer"></div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button onclick="saveEdit()" class="btn btn-primary" style="flex: 1;">Save Changes</button>
+                <button onclick="closeEditModal()" class="btn btn-outline" style="flex: 1;">Cancel</button>
+            </div>
         </div>
     </div>
 
