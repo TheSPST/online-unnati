@@ -60,6 +60,7 @@ function showSection(sectionId) {
 }
 
 let leadsData = [];
+let employeesData = [];
 let businessesData = [];
 let sortDir = { leads: 'asc', businesses: 'asc' };
 
@@ -87,7 +88,7 @@ async function loadData() {
 
     // Load Employees
     const empSnap = await db.collection("employee_codes").orderBy("timestamp", "desc").get();
-    let employeesData = [];
+    employeesData = [];
     empSnap.forEach(doc => {
         let data = doc.data();
         data.id = doc.id;
@@ -117,6 +118,9 @@ function renderLeads(data) {
             <td><span class="badge" style="position:static; transform:none;">${d.plan}</span></td>
             <td>${formatDate(d.timestamp)}</td>
             <td>
+                <button onclick="openEditModal('leads', '${d.id}')" class="btn btn-sm btn-outline" style="margin-right:5px; color: #6366f1; border-color: #6366f1; padding: 5px 10px; font-size: 0.8em;">
+                    <i class="fas fa-edit"></i>
+                </button>
                 <button onclick="deleteLead('${d.id}')" class="btn btn-sm" style="background: #ef4444; color: white; padding: 5px 10px; font-size: 0.8em;">
                     <i class="fas fa-trash"></i>
                 </button>
@@ -134,6 +138,9 @@ function renderEmployees(data) {
             <td>${d.name}</td>
             <td>${formatDate(d.timestamp)}</td>
             <td>
+                <button onclick="openEditModal('employee_codes', '${d.id}')" class="btn btn-sm btn-outline" style="margin-right:5px; color: #6366f1; border-color: #6366f1; padding: 5px 10px; font-size: 0.8em;">
+                    <i class="fas fa-edit"></i>
+                </button>
                 <button onclick="deleteEmployee('${d.id}')" class="btn btn-sm" style="background: #ef4444; color: white; padding: 5px 10px; font-size: 0.8em;">
                     <i class="fas fa-trash"></i>
                 </button>
@@ -159,12 +166,124 @@ function renderBusinesses(data) {
             <td>${d.bizPhone}</td>
             <td>${formatDate(d.timestamp)}</td>
             <td>
+                <button onclick="openEditModal('businesses', '${d.id}')" class="btn btn-sm btn-outline" style="margin-right:5px; color: #6366f1; border-color: #6366f1; padding: 5px 10px; font-size: 0.8em;">
+                    <i class="fas fa-edit"></i>
+                </button>
                 <button onclick="deleteBusiness('${d.id}')" class="btn btn-sm" style="background: #ef4444; color: white; padding: 5px 10px; font-size: 0.8em;">
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
         </tr>`;
     });
+}
+
+
+
+// Edit Functionality
+let currentEditId = null;
+let currentEditCollection = null;
+
+function openEditModal(collection, id) {
+    console.log("Opening edit modal:", collection, id);
+    currentEditId = id;
+    currentEditCollection = collection;
+
+    let data = null;
+    if (collection === 'leads') data = leadsData.find(d => d.id === id);
+    if (collection === 'employee_codes') data = employeesData.find(d => d.id === id);
+    if (collection === 'businesses') data = businessesData.find(d => d.id === id);
+
+    console.log("Data found:", data);
+
+    if (!data) return alert("Error: Data not found");
+
+    const container = document.getElementById('editFormContainer');
+    if (!container) return alert("Error: Edit form container not found");
+
+    container.innerHTML = '';
+
+    let formHtml = '';
+
+    if (collection === 'leads') {
+        formHtml = `
+            <div class="form-group"><label>Name</label><input type="text" id="editName" value="${data.name || ''}"></div>
+            <div class="form-group"><label>Phone</label><input type="text" id="editPhone" value="${data.phone || ''}"></div>
+            <div class="form-group"><label>Business</label><input type="text" id="editBusiness" value="${data.business || ''}"></div>
+            <div class="form-group"><label>Plan</label>
+                <select id="editPlan">
+                    <option value="Starter" ${data.plan === 'Starter' ? 'selected' : ''}>Starter</option>
+                    <option value="Growth" ${data.plan === 'Growth' ? 'selected' : ''}>Growth</option>
+                    <option value="Dominance" ${data.plan === 'Dominance' ? 'selected' : ''}>Dominance</option>
+                </select>
+            </div>
+        `;
+    } else if (collection === 'employee_codes') {
+        formHtml = `
+            <div class="form-group"><label>Employee Name</label><input type="text" id="editEmpName" value="${data.name || ''}"></div>
+            <div class="form-group"><label>Code (Read Only)</label><input type="text" value="${data.code || ''}" disabled style="opacity:0.6"></div>
+        `;
+    } else if (collection === 'businesses') {
+        formHtml = `
+            <div class="form-group"><label>Business Name</label><input type="text" id="editBizName" value="${data.bizName || ''}"></div>
+            <div class="form-group"><label>Owner Name</label><input type="text" id="editOwnerName" value="${data.ownerName || ''}"></div>
+            <div class="form-group"><label>Phone</label><input type="text" id="editBizPhone" value="${data.bizPhone || ''}"></div>
+            <div class="form-group"><label>Product</label><input type="text" id="editBizProduct" value="${data.bizProduct || ''}"></div>
+            <div class="form-group"><label>Plan</label>
+                <select id="editBizPlan">
+                    <option value="Basic" ${data.bizPlan === 'Basic' ? 'selected' : ''}>Basic</option>
+                    <option value="Premium" ${data.bizPlan === 'Premium' ? 'selected' : ''}>Premium</option>
+                    <option value="Enterprise" ${data.bizPlan === 'Enterprise' ? 'selected' : ''}>Enterprise</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Remark</label><textarea id="editBizRemark">${data.bizRemark || ''}</textarea></div>
+        `;
+    }
+
+    container.innerHTML = formHtml;
+    document.getElementById('editModal').style.display = 'flex';
+}
+
+function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+    currentEditId = null;
+    currentEditCollection = null;
+}
+
+async function saveEdit() {
+    if (!currentEditId || !currentEditCollection) return;
+
+    let updates = {};
+    if (currentEditCollection === 'leads') {
+        updates = {
+            name: document.getElementById('editName').value,
+            phone: document.getElementById('editPhone').value,
+            business: document.getElementById('editBusiness').value,
+            plan: document.getElementById('editPlan').value
+        };
+    } else if (currentEditCollection === 'employee_codes') {
+        updates = {
+            name: document.getElementById('editEmpName').value
+        };
+    } else if (currentEditCollection === 'businesses') {
+        updates = {
+            bizName: document.getElementById('editBizName').value,
+            ownerName: document.getElementById('editOwnerName').value,
+            bizPhone: document.getElementById('editBizPhone').value,
+            bizProduct: document.getElementById('editBizProduct').value,
+            bizPlan: document.getElementById('editBizPlan').value,
+            bizRemark: document.getElementById('editBizRemark').value
+        };
+    }
+
+    try {
+        await db.collection(currentEditCollection).doc(currentEditId).update(updates);
+        alert("Updated successfully!");
+        closeEditModal();
+        loadData();
+    } catch (error) {
+        console.error("Error updating: ", error);
+        alert("Error updating: " + error.message);
+    }
 }
 
 async function deleteLead(docId) {
