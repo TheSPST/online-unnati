@@ -99,45 +99,46 @@
             border-radius: 24px;
             width: 400px;
             text-align: center;
+        }
 
-            .edit-modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.7);
-                z-index: 4000;
-                display: none;
-                align-items: center;
-                justify-content: center;
-                backdrop-filter: blur(5px);
-            }
+        .edit-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 4000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
 
-            .edit-box {
-                background: #18181b;
-                /* Solid background */
-                padding: 30px;
-                border-radius: 24px;
-                width: 500px;
-                max-width: 90%;
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-                position: relative;
-                z-index: 4001;
-            }
+        .edit-box {
+            background: #18181b;
+            /* Solid background */
+            padding: 30px;
+            border-radius: 24px;
+            width: 500px;
+            max-width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 4001;
+        }
 
-            .edit-box input,
-            .edit-box select,
-            .edit-box textarea {
-                width: 100%;
-                padding: 10px;
-                margin-bottom: 15px;
-                border-radius: 8px;
-                background: rgba(255, 255, 255, 0.05);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                color: white;
-            }
+        .edit-box input,
+        .edit-box select,
+        .edit-box textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
     </style>
 </head>
 
@@ -167,13 +168,7 @@
             <div style="display: flex; align-items: center; gap: 15px;">
                 <a href="index.html" class="logo">Online<span>उन्नति</span> Admin</a>
             </div>
-            <div class="admin-user">
-                <i class="fas fa-user-shield"></i> Admin Mode
-                <button onclick="logout()" class="btn btn-sm btn-outline"
-                    style="margin-left: 15px; border-color: rgba(255,255,255,0.2); color: white;">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </div>
+            <!-- Admin items moved to sidebar -->
         </div>
     </nav>
 
@@ -190,6 +185,15 @@
                     </li>
                     <li onclick="showSection('businesses')" id="menuBusinesses"><i class="fas fa-store"></i>
                         All Businesses
+                    </li>
+
+                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
+
+                    <li style="cursor: default; opacity: 0.7;">
+                        <i class="fas fa-user-shield"></i> Admin Mode
+                    </li>
+                    <li onclick="logout()" style="color: #ef4444;">
+                        <i class="fas fa-sign-out-alt"></i> Logout
                     </li>
                 </ul>
             </div>
