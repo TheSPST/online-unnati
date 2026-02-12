@@ -118,7 +118,13 @@
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="logo">Online<span>उन्नति</span> Admin</a>
-            <div class="admin-user"><i class="fas fa-user-shield"></i> Manager Mode</div>
+            <div class="admin-user">
+                <i class="fas fa-user-shield"></i> Manager Mode
+                <button onclick="logout()" class="btn btn-sm btn-outline"
+                    style="margin-left: 15px; border-color: rgba(255,255,255,0.2); color: white;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -156,6 +162,7 @@
                                         class="fas fa-sort"></i></th>
                                 <th onclick="sortTable('leads', 'timestamp')" style="cursor:pointer">Date <i
                                         class="fas fa-sort"></i></th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="leadsBody"></tbody>
@@ -176,6 +183,7 @@
                                 <th>Code</th>
                                 <th>Employee Name</th>
                                 <th>Date</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="employeeBody"></tbody>
@@ -206,6 +214,7 @@
                                         class="fas fa-sort"></i></th>
                                 <th onclick="sortTable('businesses', 'timestamp')" style="cursor:pointer">Date <i
                                         class="fas fa-sort"></i></th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="bizBody"></tbody>

@@ -25,13 +25,28 @@ function checkLogin() {
     }
 }
 
+function logout() {
+    localStorage.removeItem('adminLoggedIn');
+    window.location.reload();
+}
+
 // Check Login on Load
-window.addEventListener('DOMContentLoaded', () => {
+function initAdmin() {
+    const overlay = document.getElementById('loginOverlay');
     if (localStorage.getItem('adminLoggedIn') === 'true') {
-        document.getElementById('loginOverlay').style.display = 'none';
+        if (overlay) overlay.style.display = 'none';
         loadData();
+    } else {
+        if (overlay) overlay.style.display = 'flex';
     }
-});
+}
+
+// Run immediately if DOM is ready, otherwise wait
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAdmin);
+} else {
+    initAdmin();
+}
 
 // Navigation
 function showSection(sectionId) {
@@ -48,30 +63,46 @@ let leadsData = [];
 let businessesData = [];
 let sortDir = { leads: 'asc', businesses: 'asc' };
 
+// Date Helper
+function formatDate(timestamp) {
+    if (!timestamp) return '-';
+    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+    return date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+    }).replace(/ /g, ', ');
+}
+
 async function loadData() {
     // Load Leads
     const leadsSnap = await db.collection("leads").orderBy("timestamp", "desc").get();
     leadsData = [];
-    leadsSnap.forEach(doc => leadsData.push(doc.data()));
+    leadsSnap.forEach(doc => {
+        let data = doc.data();
+        data.id = doc.id;
+        leadsData.push(data);
+    });
     renderLeads(leadsData);
 
-    // Load Employees (No search/sort requested, keeping as is)
+    // Load Employees
     const empSnap = await db.collection("employee_codes").orderBy("timestamp", "desc").get();
-    const empBody = document.getElementById("employeeBody");
-    empBody.innerHTML = "";
+    let employeesData = [];
     empSnap.forEach(doc => {
-        const d = doc.data();
-        empBody.innerHTML += `<tr>
-            <td><strong>${d.code}</strong></td>
-            <td>${d.name}</td>
-            <td>${d.timestamp?.toDate().toLocaleDateString() || '-'}</td>
-        </tr>`;
+        let data = doc.data();
+        data.id = doc.id;
+        employeesData.push(data);
     });
+    renderEmployees(employeesData);
 
     // Load Businesses
     const bizSnap = await db.collection("businesses").orderBy("timestamp", "desc").get();
     businessesData = [];
-    bizSnap.forEach(doc => businessesData.push(doc.data()));
+    bizSnap.forEach(doc => {
+        let data = doc.data();
+        data.id = doc.id; // Store document ID
+        businessesData.push(data);
+    });
     renderBusinesses(businessesData);
 }
 
@@ -84,7 +115,29 @@ function renderLeads(data) {
             <td>${d.business}</td>
             <td>${d.phone}</td>
             <td><span class="badge" style="position:static; transform:none;">${d.plan}</span></td>
-            <td>${d.timestamp?.toDate().toLocaleDateString() || '-'}</td>
+            <td>${formatDate(d.timestamp)}</td>
+            <td>
+                <button onclick="deleteLead('${d.id}')" class="btn btn-sm" style="background: #ef4444; color: white; padding: 5px 10px; font-size: 0.8em;">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        </tr>`;
+    });
+}
+
+function renderEmployees(data) {
+    const empBody = document.getElementById("employeeBody");
+    empBody.innerHTML = "";
+    data.forEach(d => {
+        empBody.innerHTML += `<tr>
+            <td><strong>${d.code}</strong></td>
+            <td>${d.name}</td>
+            <td>${formatDate(d.timestamp)}</td>
+            <td>
+                <button onclick="deleteEmployee('${d.id}')" class="btn btn-sm" style="background: #ef4444; color: white; padding: 5px 10px; font-size: 0.8em;">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
         </tr>`;
     });
 }
@@ -93,6 +146,8 @@ function renderBusinesses(data) {
     const bizBody = document.getElementById("bizBody");
     bizBody.innerHTML = "";
     data.forEach(d => {
+        // Use document ID if available, otherwise fallback (though for deletion we need doc id)
+        // We need to modify loadData to include doc id in the data pushed to arrays
         bizBody.innerHTML += `<tr>
             <td>${d.bizName}
                 ${d.bizRemark ? `<br><small style="color:var(--text-muted); font-size:0.8em;">${d.bizRemark}</small>` : ''}
@@ -102,9 +157,57 @@ function renderBusinesses(data) {
             <td><span class="badge" style="position:static; transform:none;">${d.bizPlan || '-'}</span></td>
             <td><code>${d.empCode}</code></td>
             <td>${d.bizPhone}</td>
-            <td>${d.timestamp?.toDate().toLocaleDateString() || '-'}</td>
+            <td>${formatDate(d.timestamp)}</td>
+            <td>
+                <button onclick="deleteBusiness('${d.id}')" class="btn btn-sm" style="background: #ef4444; color: white; padding: 5px 10px; font-size: 0.8em;">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
         </tr>`;
     });
+}
+
+async function deleteLead(docId) {
+    if (!docId) return alert("Error: No lead ID found");
+    if (confirm("Are you sure you want to delete this lead? This action cannot be undone.")) {
+        try {
+            await db.collection("leads").doc(docId).delete();
+            alert("Lead deleted successfully");
+            loadData();
+        } catch (error) {
+            console.error("Error removing document: ", error);
+            alert("Error deleting lead: " + error.message);
+        }
+    }
+}
+
+async function deleteEmployee(docId) {
+    if (!docId) return alert("Error: No employee ID found");
+    if (confirm("Are you sure you want to delete this employee code? This action cannot be undone.")) {
+        try {
+            await db.collection("employee_codes").doc(docId).delete();
+            alert("Employee code deleted successfully");
+            loadData();
+        } catch (error) {
+            console.error("Error removing document: ", error);
+            alert("Error deleting employee code: " + error.message);
+        }
+    }
+}
+
+async function deleteBusiness(docId) {
+    if (!docId) return alert("Error: No business ID found");
+
+    if (confirm("Are you sure you want to delete this business? This action cannot be undone.")) {
+        try {
+            await db.collection("businesses").doc(docId).delete();
+            alert("Business deleted successfully");
+            loadData(); // Refresh list
+        } catch (error) {
+            console.error("Error removing document: ", error);
+            alert("Error deleting business: " + error.message);
+        }
+    }
 }
 
 function filterLeads() {
